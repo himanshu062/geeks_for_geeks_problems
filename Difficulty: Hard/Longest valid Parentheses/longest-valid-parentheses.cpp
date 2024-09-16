@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
 // User function Template for C++
 
@@ -30,17 +31,18 @@ public:
     }
 };
 
+
 //{ Driver Code Starts.
 
-int main(){
+int main() {
     int t;
-    cin>>t;
-    while(t--){
+    cin >> t;
+    while (t--) {
         string S;
-        cin>>S;
-        
+        cin >> S;
+
         Solution ob;
-        cout<<ob.maxLength(S)<<"\n";
+        cout << ob.maxLength(S) << "\n";
     }
     return 0;
 }
