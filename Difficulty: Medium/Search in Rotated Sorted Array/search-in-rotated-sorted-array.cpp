@@ -43,6 +43,7 @@ int main() {
         cin >> key;
         Solution ob;
         cout << ob.search(arr, key) << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
