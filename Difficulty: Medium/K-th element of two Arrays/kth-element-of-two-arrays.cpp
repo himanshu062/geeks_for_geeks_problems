@@ -6,7 +6,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int kthElement(int k, vector<int>& arr1, vector<int>& arr2) {
+    int kthElement(vector<int>& arr1, vector<int>& arr2, int k) {
         // code here
         int n1 = arr1.size() , n2 = arr2.size() ;
         if(k == n1+n2)return max(arr1[n1-1],arr2[n2-1]);
@@ -47,22 +47,22 @@ int main() {
         cin.ignore();
         string input;
         int num;
-        vector<int> arr1, arr2;
+        vector<int> a, b;
 
         getline(cin, input);
         stringstream s2(input);
         while (s2 >> num) {
-            arr1.push_back(num);
+            a.push_back(num);
         }
 
         getline(cin, input);
         stringstream s3(input);
         while (s3 >> num) {
-            arr2.push_back(num);
+            b.push_back(num);
         }
 
         Solution ob;
-        cout << ob.kthElement(k, arr1, arr2) << endl;
+        cout << ob.kthElement(a, b, k) << endl << "~\n";
     }
     return 0;
 }
