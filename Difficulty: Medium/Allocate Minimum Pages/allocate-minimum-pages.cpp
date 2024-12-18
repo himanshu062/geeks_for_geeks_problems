@@ -1,67 +1,87 @@
 //{ Driver Code Starts
-// Initial template for C++
+// Initial function template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
-// User function template in C++
-
 class Solution {
   public:
-    bool possible(long long mid, int arr[], int n, int m) {
-        long long curr = 0;
-        m--;
-        for(int i = 0; i < n; i++) {
-            if(arr[i] > mid)
-                return false;
-            curr += arr[i];
-            if(curr > mid) {
-                curr = arr[i];
-                m--;
+    int findPages(vector<int> &arr, int k) {
+        // code here
+        int start=*max_element(arr.begin(),arr.end());
+        int end=accumulate(arr.begin(),arr.end(),0);
+        int ans=INT_MAX;
+        int n=arr.size();
+   
+        if(k > n) return -1;
+        while(start <= end)
+        {
+            int mid=start + (end-start)/2;
+            
+            int sum=0;
+            int T=1;
+            for(int i=0; i<n ;i++)
+            {
+                if(sum+arr[i] > mid)
+                {
+                    T++;
+                    sum=arr[i];
+                }
+                
+                else
+                {
+                    sum+=arr[i];
+                }
+            }
+            
+            if(T<=k)
+            {
+                end=mid-1;
+                ans=min(ans,mid);
+            }
+            else{
+                start=mid+1;
             }
         }
-        return m >= 0;
-    }
-    // Function to find minimum number of pages.
-    long long findPages(int n, int arr[], int m) {
-        if(m > n)
-            return -1;
-        long long lo = 0, hi = 1e18;
-        long long ans = -1;
-        while(lo <= hi) {
-            long long mid = lo + (hi - lo) / 2;
-            if(possible(mid, arr, n, m)) {
-                ans = mid;
-                hi = mid - 1;
-            } else {
-                lo = mid + 1;
-            }
-        }
+        
         return ans;
     }
 };
 
-
 //{ Driver Code Starts.
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        int A[n];
-        for (int i = 0; i < n; i++) {
-            cin >> A[i];
+    int test_case;
+    cin >> test_case;
+    cin.ignore();
+    while (test_case--) {
+
+        int d;
+        vector<int> arr, brr, crr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
         }
-        int m;
-        cin >> m;
+        getline(cin, input);
+        ss.clear();
+        ss.str(input);
+        while (ss >> number) {
+            crr.push_back(number);
+        }
+        d = crr[0];
+        int n = arr.size();
         Solution ob;
-        cout << ob.findPages(n, A, m) << endl;
+        int ans = ob.findPages(arr, d);
+        cout << ans << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
-
 // } Driver Code Ends
