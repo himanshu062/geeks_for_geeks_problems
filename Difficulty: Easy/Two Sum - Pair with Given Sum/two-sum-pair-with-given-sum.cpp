@@ -7,11 +7,9 @@ using namespace std;
 // User function template for C++
 class Solution {
   public:
-    // Function to check if array has 2 elements
-    // whose sum is equal to the given value
-    bool hasArrayTwoCandidates(vector<int>& arr, int x) {
+    bool twoSum(vector<int>& arr, int x) {
         // code here
-         unordered_set<int> seen;
+        unordered_set<int> seen;
         for (int i = 0; i < arr.size(); i++) {
             int complement = x - arr[i];
             if (seen.find(complement) != seen.end()) {
@@ -28,11 +26,11 @@ class Solution {
 int main() {
     int t;
     cin >> t;
-    cin.ignore(); // To discard any leftover newline characters
+    cin.ignore();
     while (t--) {
         int x;
         cin >> x;
-        cin.ignore(); // To discard any leftover newline characters
+        cin.ignore();
 
         vector<int> arr;
         string input;
@@ -44,8 +42,9 @@ int main() {
         }
 
         Solution ob;
-        auto ans = ob.hasArrayTwoCandidates(arr, x);
+        auto ans = ob.twoSum(arr, x);
         cout << (ans ? "true" : "false") << endl;
+        cout << "~" << endl;
     }
 
     return 0;
