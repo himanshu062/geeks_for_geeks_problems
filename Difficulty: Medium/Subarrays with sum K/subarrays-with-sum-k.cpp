@@ -9,7 +9,7 @@ using namespace std;
 
 class Solution {
   public:
-    int findSubArraySum(int k, vector<int> &arr) {
+    int countSubarrays(vector<int> &arr, int k) {
         // code here
         unordered_map<int, int> prefixSumCount;
         int currentSum = 0, count = 0;
@@ -50,7 +50,7 @@ int main() {
             arr.push_back(number);
         }
         Solution obj;
-        cout << obj.findSubArraySum(k, arr);
+        cout << obj.countSubarrays(arr, k);
         cout << endl;
         cout << "~"
              << "\n";
