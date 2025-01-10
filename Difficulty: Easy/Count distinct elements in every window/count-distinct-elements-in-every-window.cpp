@@ -1,53 +1,60 @@
 //{ Driver Code Starts
+// Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
 
-
 // } Driver Code Ends
 
-class Solution{
+class Solution {
   public:
-    vector <int> countDistinct (int A[], int n, int k)
-    {
-        //code here.
-        unordered_map<int, int> freq;
-    vector<int> result;
-    
-    for (int i = 0; i < k; i++) freq[A[i]]++;
-    result.push_back(freq.size());
-    
-    for (int i = k; i < n; i++) {
-        freq[A[i - k]]--;
-        if (freq[A[i - k]] == 0) freq.erase(A[i - k]);
-        
-        freq[A[i]]++;
-        result.push_back(freq.size());
-    }
-    
-    return result;
+    vector<int> countDistinct(vector<int> &arr, int k) {
+        // code here.
+        unordered_map<int,int> mp;
+        int n=arr.size();
+        for(int i=0;i<k;i++){
+            mp[arr[i]]++;
+        }
+        vector<int> res;
+        res.push_back(mp.size());
+        for(int i=k;i<n;i++){
+            if(--mp[arr[i-k]]==0) mp.erase(arr[i-k]);
+            mp[arr[i]]++;
+            res.push_back(mp.size());
+        }
+        return res;
     }
 };
 
 //{ Driver Code Starts.
-int main()
-{
+
+int main() {
+
     int t;
     cin >> t;
-    while (t--)
-    {
-
-        int n, k;
-        cin >> n >> k;
-        int a[n];
-        for (int i = 0; i < n; i++) 
-        	cin >> a[i];
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        string ks;
+        getline(cin, ks);
+        int k = stoi(ks);
         Solution obj;
-        vector <int> result = obj.countDistinct(a, n, k);
-        for (int i : result) 
-        	cout << i << " ";
+        vector<int> res = obj.countDistinct(arr, k);
+        for (auto it : res)
+            cout << it << " ";
         cout << endl;
+        cout << "~"
+             << "\n";
     }
+
     return 0;
 }
+
 // } Driver Code Ends
