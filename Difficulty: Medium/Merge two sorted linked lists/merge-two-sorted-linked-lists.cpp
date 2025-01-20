@@ -18,7 +18,7 @@ void printList(struct Node *head) {
         cout << temp->data << ' ';
         temp = temp->next;
     }
-    cout << '\n';
+    cout << "\n~\n";
 }
 
 Node *insertSorted(Node *head, int data) {
@@ -39,8 +39,6 @@ Node *insertSorted(Node *head, int data) {
 
 
 // } Driver Code Ends
-
-
 /* Link list Node
 struct Node {
   int data;
@@ -52,7 +50,6 @@ struct Node {
   }
 };
 */
-// Function to merge two sorted linked list.
 class Solution {
   public:
     Node* sortedMerge(Node* head1, Node* head2) {
