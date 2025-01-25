@@ -4,7 +4,7 @@ using namespace std;
 
 struct Node {
     int data;
-    struct Node *next;
+    Node *next;
 
     Node(int x) {
         data = x;
@@ -46,23 +46,28 @@ void loopHere(Node *head, Node *tail, int position) {
 */
 class Solution {
   public:
-    // Function to find first node if the linked list has a loop.
-    int findFirstNode(Node* head) {
+    Node* findFirstNode(Node* head) {
         // your code here
-        Node *slow = head, *fast = head;
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
-            if (slow == fast) {
-                slow = head;
-                while (slow != fast) {
-                    slow = slow->next;
-                    fast = fast->next;
-                }
-                return slow->data;
-            }
-        }
-        return -1;
+        if(head == nullptr)
+        return head;
+       Node * fast = head;
+       Node * slow =head;
+       while(fast && fast->next)
+       {
+           fast = fast->next->next;
+           slow = slow->next;
+           if(slow == fast)
+           {
+               slow = head;
+               while(slow!= fast)
+               {
+                   slow = slow->next;
+                   fast = fast->next;
+               }
+               return slow;
+           }
+       }
+       return nullptr;
     }
 };
 
@@ -84,6 +89,7 @@ int main() {
         int k;
         cin >> k;
         cin.ignore();
+        assert(k <= arr.size());
         struct Node *head = new Node(arr[0]);
         struct Node *tail = head;
         for (int i = 1; i < arr.size(); ++i) {
@@ -93,8 +99,9 @@ int main() {
         loopHere(head, tail, k);
 
         Solution ob;
-        int ans = ob.findFirstNode(head);
-        cout << ans << "\n";
+        Node *ans = ob.findFirstNode(head);
+        cout << (ans == NULL ? -1 : ans->data) << "\n";
+        cout << "~\n";
     }
     return 0;
 }
