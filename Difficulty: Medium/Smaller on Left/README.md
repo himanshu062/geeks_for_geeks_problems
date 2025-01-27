@@ -1,26 +1,18 @@
-<h2><a href="https://www.geeksforgeeks.org/problems/smaller-on-left20360700/1?page=1&category=Hash&difficulty=Medium&status=unsolved&sortBy=submissions">Smaller on Left</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given an array <strong>arr</strong>[ ] of <strong>N</strong> positive integers,&nbsp;the task is to find the greatest element on the left of every element in the array which is strictly smaller than itself, if this element does not exist for an index print "-1".</span></p>
-<p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
-<pre><span style="font-size: 18px;"><strong>Input:
-</strong>N = 5
-arr[] = {2, 3, 4, 5, 1}
-<strong>Output: 
-</strong>-1 2 3 4 -1
-<strong>Explanation:</strong>
-Greatest element on the left of 3 smaller 
-than itself is 2, for 4 it is 3 and for 5 
-it is 1. Since 2 is the first element and 
-no element on its left is present, so it's 
-greatest smaller element will be -1 and for 
-1 no element smaller than itself is present 
-on its left, so it's greatest smaller element 
-is -1.
-</span></pre>
-<p><span style="font-size: 18px;"><strong>Example 2:</strong></span></p>
-<pre><span style="font-size: 18px;"><strong>Input:
-</strong>N = 3
-arr[] = {1, 2, 3} <strong>
-Output:
-</strong>-1 1 2 </span></pre>
-<p><span style="font-size: 18px;"><strong>Your Task:</strong><br>This is a function problem. The input is already taken care of by the driver code. You only need to complete the function <strong>Smallestonleft()</strong> that takes an array <strong>arr[ ]&nbsp;</strong>and&nbsp;sizeOfArray <strong>N</strong>, and return the required answer. The driver code takes care of the printing.</span></p>
-<p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong>&nbsp;O(N*Log(N)).<br><strong>Expected Auxiliary Space:</strong>&nbsp;O(N).</span></p>
-<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 ≤ N ≤&nbsp;10<sup>6</sup><br>1 ≤&nbsp;arr[i] ≤&nbsp;10<sup>8</sup></span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>set</code>&nbsp;<code>Arrays</code>&nbsp;<code>Hash</code>&nbsp;<code>Map</code>&nbsp;<code>Data Structures</code>&nbsp;
+<h2><a href="https://www.geeksforgeeks.org/problems/smallest-number-on-left3403/1?page=2&difficulty=Medium&status=unsolved&sortBy=submissions">Smaller on Left</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 20px;">Given an array <strong>a&nbsp;</strong>of integers of length <strong>n</strong>, find the nearest smaller number for every element such that the smaller element is on left side.If no small element present on the left print -1.</span></p>
+<p><strong><span style="font-size: 20px;">Example 1:</span></strong></p>
+<pre><span style="font-size: 20px;"><strong>Input:</strong> n = 3
+a = {1, 6, 2}
+<strong>Output:</strong> -1 1 1
+<strong>Explaination:</strong> There is no number at the 
+left of 1. Smaller number than 6 and 2 is 1.</span></pre>
+<p><strong><span style="font-size: 20px;">Example 2:</span></strong></p>
+<pre><span style="font-size: 20px;"><strong>Input:</strong> n = 6
+a = {1, 5, 0, 3, 4, 5}
+<strong>Output:</strong> -1 1 -1 0 3 4
+<strong>Explaination:</strong> Upto 3 it is easy to see 
+the smaller numbers. But for 4 the smaller 
+numbers are 1, 0 and 3. But among them 3 
+is closest. Similary for 5 it is 4.</span></pre>
+<p><span style="font-size: 20px;"><strong>Your Task:</strong><br>You do not need to read input or print anything. Your task is to complete the function <strong>leftSmaller()</strong> which takes n and a as input parameters and returns the list of smaller numbers.</span></p>
+<p><span style="font-size: 20px;"><strong>Expected Time Complexity:</strong> O(n)<br><strong>Expected Auxiliary Space:</strong> O(n)</span></p>
+<p><span style="font-size: 20px;"><strong>Constraints:</strong><br>1 ≤ n ≤ 10000<br>0 ≤ a[i] ≤ 10<sup>4</sup>&nbsp;&nbsp;</span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Stack</code>&nbsp;<code>Data Structures</code>&nbsp;
