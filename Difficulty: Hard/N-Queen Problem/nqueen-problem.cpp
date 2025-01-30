@@ -4,76 +4,74 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
 // User function Template for C++
 
-class Solution{
-public:
-    bool canPut(int row,int col,vector<int> temp){
-        int r = row, c = col;
-        while(r>=0 and c>=0){
-            if(temp[r]==c+1)return false;
-            r--;
-            c--;
-        }
-        r = row, c = col;
-        while(r>=0){
-            if(temp[r]==c+1)return false;
-            r--;
-        }
-        r = row, c = col;
-        while(r>=0 and c<temp.size()){
-            if(temp[r]==c+1)return false;
-            r--;
-            c++;
-        }
-        return true;
+class Solution {
+  public:
+    vector<vector<int>> nQueen(int n) {
+        // code here
+        vector<bool> col(n, false);
+        vector<bool> ndiag(2 * n - 1, false);
+        vector<bool> rdiag(2 * n - 1, false);
+        vector<vector<int>> res;
+        vector<int> tmp;
+        solve(n, 0, col, ndiag, rdiag, res, tmp);
+        return res;
     }
-    void help(int n,vector<vector<int>> &ans,vector<int> temp,int row){
-        if(row==n){
-            ans.push_back(temp);
+
+private:
+    void solve(int n, int currR, vector<bool>& col, vector<bool>& ndiag, vector<bool>& rdiag,
+               vector<vector<int>>& res, vector<int>& tmp) {
+        if (currR == n) {
+            res.push_back(tmp);
             return;
         }
-        for(int col=0;col<n;col++){
-            if(canPut(row,col,temp)){
-                temp[row]=col+1;
-                help(n,ans,temp,row+1);
-                temp[row]=0;
+        for (int i = 0; i < n; i++) {
+            if (!col[i] && !ndiag[currR + i] && !rdiag[currR - i + n - 1]) {
+                tmp.push_back(i + 1);
+                col[i] = true;
+                ndiag[currR + i] = true;
+                rdiag[currR - i + n - 1] = true;
+                
+                solve(n, currR + 1, col, ndiag, rdiag, res, tmp);
+                
+                tmp.pop_back();
+                col[i] = false;
+                ndiag[currR + i] = false;
+                rdiag[currR - i + n - 1] = false;
             }
         }
     }
-    vector<vector<int>> nQueen(int n) {
-        // code here
-        vector<vector<int>> ans;
-        vector<int> temp(n,0);
-        help(n,ans,temp,0);
-        return ans;
-    }
-
 };
 
 //{ Driver Code Starts.
 
-int main(){
+int main() {
     int t;
-    cin>>t;
-    while(t--){
+    cin >> t;
+    while (t--) {
         int n;
-        cin>>n;
-        
+        cin >> n;
+
         Solution ob;
         vector<vector<int>> ans = ob.nQueen(n);
-        if(ans.size() == 0)
-            cout<<-1<<"\n";
+        if (ans.size() == 0)
+            cout << -1 << "\n";
         else {
-            for(int i = 0;i < ans.size();i++){
-                cout<<"[";
-                for(int u: ans[i])
-                    cout<<u<<" ";
-                cout<<"] ";
+            sort(ans.begin(), ans.end());
+            for (int i = 0; i < ans.size(); i++) {
+                cout << "[";
+                for (int u : ans[i])
+                    cout << u << " ";
+                cout << "] ";
             }
-            cout<<endl;
+            cout << endl;
         }
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
