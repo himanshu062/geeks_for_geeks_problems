@@ -1,32 +1,32 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+
 
 // } Driver Code Ends
 class Solution {
-public:
-    bool dfs(vector<vector<char>>& board, string& word, int i, int j, int index) {
-        if (index == word.length()) return true;
-        if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || board[i][j] != word[index]) return false;
+  public:
+    bool solve(vector<vector<char>>& mat,string& word ,int i,int j,int idx,vector<vector<bool>>&vis){
+        //base case
+        if(idx==word.length()) return true;
         
-        char temp = board[i][j];
-        board[i][j] = '*'; 
+        if(i<0 || j<0 || i>= mat.size() || j>=mat[0].size() || vis[i][j] || mat[i][j]!=word[idx]) return false;
+        //recursive case
+        vis[i][j]=true;
+        if(solve(mat,word,i-1,j,idx+1,vis) || solve(mat,word,i+1,j,idx+1,vis)
+        || solve(mat,word,i,j-1,idx+1,vis) || solve(mat,word,i,j+1,idx+1,vis) ) return true;
+        vis[i][j]=false;
         
-        bool found = dfs(board, word, i + 1, j, index + 1) ||
-                     dfs(board, word, i - 1, j, index + 1) ||
-                     dfs(board, word, i, j + 1, index + 1) ||
-                     dfs(board, word, i, j - 1, index + 1);
-        
-        board[i][j] = temp; 
-        return found;
+        return false;
     }
-    
-    bool isWordExist(vector<vector<char>>& board, string word) {
-        int rows = board.size(), cols = board[0].size();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (board[i][j] == word[0] && dfs(board, word, i, j, 0)) {
-                    return true;
+    bool isWordExist(vector<vector<char>>& mat, string& word) {
+        int n=mat.size();
+        int m=mat[0].size();
+        vector<vector<bool>>vis(n,vector<bool>(m,false));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==word[0]){
+                    if(solve(mat,word,i,j,0,vis)) return true;
                 }
             }
         }
@@ -35,26 +35,28 @@ public:
 };
 
 //{ Driver Code Starts.
-int main(){
-	int tc;
-	cin >> tc;
-	while(tc--){
-		int n, m;
-		cin >> n >> m;
-		vector<vector<char>>board(n, vector<char>(m, '*'));
-		for(int i = 0; i < n; i++)
-			for(int j = 0; j < m; j++)
-				cin >> board[i][j];
-		string word;
-		cin >> word;
-		Solution obj;
-		bool ans = obj.isWordExist(board, word);
-		if(ans)
-			cout << "1\n";
-		else cout << "0\n";
-	
-cout << "~" << "\n";
-}
-	return 0;
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<char>> mat(n, vector<char>(m, '*'));
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                cin >> mat[i][j];
+        string word;
+        cin >> word;
+        Solution obj;
+        bool ans = obj.isWordExist(mat, word);
+        if (ans)
+            cout << "true\n";
+        else
+            cout << "false\n";
+
+        cout << "~"
+             << "\n";
+    }
+    return 0;
 }
 // } Driver Code Ends
