@@ -5,60 +5,75 @@ using namespace std;
 
 // } Driver Code Ends
 
-class Solution
-{
-    public:
-    //Function to find maximum of minimums of every window size.
-    vector <int> maxOfMin(int arr[], int N)
-    {
+
+class Solution {
+  public:
+    vector<int> maxOfMins(vector<int>& arr) {
         // Your code here
-    vector<int> prev(N, -1), next(N, N);
-    stack<int> s;
-    for (int i = 0; i < N; i++) {
-        while (!s.empty() && arr[s.top()] >= arr[i])
-            s.pop();
-        if (!s.empty())
-            prev[i] = s.top();
-        s.push(i);
-    }
-    while (!s.empty())
-        s.pop();
-    for (int i = N - 1; i >= 0; i--) {
-        while (!s.empty() && arr[s.top()] >= arr[i])
-            s.pop();
-        if (!s.empty())
-            next[i] = s.top();
-        s.push(i);
-    }
-    vector<int> result(N + 1, 0);
-    for (int i = 0; i < N; i++) {
-        int len = next[i] - prev[i] - 1;
-        result[len] = max(result[len], arr[i]);
-    }
-    for (int i = N - 1; i >= 1; i--)
-        result[i] = max(result[i], result[i + 1]);
-    vector<int> ans(N);
-    for (int i = 1; i <= N; i++)
-        ans[i - 1] = result[i];
-    
-    return ans;
+        stack<int> s1;
+        int n = arr.size();
+        vector<int> left(n+1, -1);
+        vector<int> right(n+1, n);
+        
+        for(int i=0;i<n;i++) {
+            while(!s1.empty() && arr[s1.top()]>=arr[i])
+                s1.pop();
+            if(!s1.empty())
+                left[i] = s1.top();
+            s1.push(i);
+        }
+        
+        while(!s1.empty())
+            s1.pop();
+            
+        for(int i=n-1;i>=0;i--) {
+            while(!s1.empty() && arr[s1.top()]>=arr[i])
+                s1.pop();
+            if(!s1.empty())
+                right[i] = s1.top();
+            s1.push(i);
+        }
+        
+        vector<int> result(n+1, 0);
+        for(int i=0;i<n;i++) {
+            int len = right[i]-left[i]-1;
+            result[len] = max(result[len], arr[i]);
+        }
+        
+        for(int i=n-1;i>=0;i--) {
+            result[i] = max(result[i], result[i+1]);
+        }
+        
+        vector<int> finalResult(n);
+        for(int i=1;i<=n;i++) {
+            finalResult[i-1] = result[i];
+        }
+        
+        return finalResult;
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
     int t;
     cin >> t;
-
+    cin.ignore();
     while (t--) {
-        int n;
-        cin >> n;
-        int a[n];
-        for (int i = 0; i < n; i++) cin >> a[i];
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        vector<int> arr;
+        int num;
+        while (ss >> num) {
+            arr.push_back(num);
+        }
         Solution ob;
-        vector <int> res = ob.maxOfMin(a, n);
-        for (int i : res) cout << i << " ";
+        vector<int> res = ob.maxOfMins(arr);
+        for (int i : res)
+            cout << i << " ";
         cout << endl;
+        cout << "~\n";
     }
     return 0;
 }
