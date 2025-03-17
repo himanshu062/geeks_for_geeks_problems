@@ -1,10 +1,11 @@
 //{ Driver Code Starts
-//Initial template for C++
 
-#include<bits/stdc++.h> 
-using namespace std; 
+#include <bits/stdc++.h>
+using namespace std;
+
 
 // } Driver Code Ends
+
 //User function template for C++
 
 class Solution{   
@@ -28,25 +29,36 @@ public:
     }
 };
 
+
+
 //{ Driver Code Starts.
-int main() 
-{ 
+
+int main() {
+
     int t;
-    cin>>t;
-    while(t--)
-    {
-        int N, sum;
-        cin >> N;
-        vector<int> arr(N);
-        for(int i = 0; i < N; i++){
-            cin >> arr[i];
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
         }
+        int sum;
         cin >> sum;
-        
+        cin.ignore();
+
         Solution ob;
-        cout << ob.isSubsetSum(arr, sum) << endl;
+        if (ob.isSubsetSum(arr, sum))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+        cout << "~" << endl;
     }
-    return 0; 
-} 
+    return 0;
+}
 
 // } Driver Code Ends
