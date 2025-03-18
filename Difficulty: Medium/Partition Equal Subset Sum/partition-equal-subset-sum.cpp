@@ -1,65 +1,62 @@
 //{ Driver Code Starts
-// Initial Template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
-// User function Template for C++
 
-class Solution{
-public:
-    int equalPartition(int n, int arr[])
-    {
+// } Driver Code Ends
+
+class Solution {
+  public:
+    bool equalPartition(vector<int>& arr) {
         // code here
-         int sum = 0;
-        for(int i = 0; i < n; i++)  
-            sum += arr[i];
-            
-        vector<vector<int>> dp(n + 1, vector<int> (sum + 1, 0));
-        if(!(sum & 1)){
-            dp[n][sum / 2] = 1;
-        }
-        else{
-            return 0;
-        }
-        
-        for(int i = n - 1; i > -1; i--){
-            for(int j = 0; j < sum + 1; j++){
-                bool take, notake;
-                
-                take = notake = 0;
-                
-                if(j + arr[i] <= sum)
-                    take = dp[i + 1][j + arr[i]];
-                notake = dp[i + 1][j];
-                
-                dp[i][j] = take || notake;
-            }
-        }
-        
-        return dp[0][0];
+        int sum = 0;
+    int n = arr.size();
+    for (int x : arr) {
+      sum += x;
+    }
+
+    if (sum % 2 != 0) {
+      return false;
+    }
+
+    int target = sum / 2;
+    vector<bool> dp(target + 1, false);
+    dp[0] = true;
+
+    for (int num : arr) {
+      for (int j = target; j >= num; j--) {
+        dp[j] = dp[j] || dp[j - num];
+      }
+    }
+
+    return dp[target];
     }
 };
 
 
 //{ Driver Code Starts.
 
-int main(){
+int main() {
     int t;
-    cin>>t;
-    while(t--){
-        int N;
-        cin>>N;
-        int arr[N];
-        for(int i = 0;i < N;i++)
-            cin>>arr[i];
-        
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+
         Solution ob;
-        if(ob.equalPartition(N, arr))
-            cout<<"YES\n";
+        if (ob.equalPartition(arr))
+            cout << "true\n";
         else
-            cout<<"NO\n";
+            cout << "false\n";
+        cout << "~" << endl;
     }
     return 0;
 }
