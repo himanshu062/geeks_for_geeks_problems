@@ -4,9 +4,10 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
-    int countWays(string s) {
+    int countWays(string &s) {
         // Code here
         int n = s.size();
         if (n == 0 || s[0] == '0') return 0;
@@ -33,16 +34,21 @@ class Solution {
     }
 };
 
+
 //{ Driver Code Starts.
 int main() {
     int tc;
     cin >> tc;
+    cin.ignore();
     while (tc--) {
-        string s;
-        cin >> s;
+        string digits;
+        getline(cin, digits);
         Solution obj;
-        int ans = obj.countWays(s);
+        int ans = obj.countWays(digits);
         cout << ans << "\n";
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
