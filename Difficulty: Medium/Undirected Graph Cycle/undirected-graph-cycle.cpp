@@ -2,53 +2,75 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
   public:
-    bool dfs(int node, int parent, vector<int> adj[], vector<bool> &visited) {
-        visited[node] = true;
-        for (auto neighbor : adj[node]) {
-            if (!visited[neighbor]) {
-                if (dfs(neighbor, node, adj, visited)) return true;
-            } else if (neighbor != parent) {
+  bool iscuclic(int i,unordered_map<int,bool> &vis,vector<vector<int>> &adj,int parent){
+        vis[i]=true;
+        for(auto j:adj[i]){
+            if(!vis[j]){
+                bool cycle=iscuclic(j,vis,adj,i);
+                if(cycle){
+                    return true;
+                }
+            }
+            else if(j!=parent){
                 return true;
             }
         }
         return false;
     }
-
-    bool isCycle(int V, vector<int> adj[]) {
-        vector<bool> visited(V, false);
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                if (dfs(i, -1, adj, visited)) return true;
+    bool isCycle(int V, vector<vector<int>>& edges) {
+        // Code here
+        unordered_map<int,bool> vis;
+        vector<vector<int>> adj(V);
+        vector<int> parent(V,-1);
+        for(int i=0;i<edges.size();i++){
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+        }
+        for(int i=0;i<V;i++){
+            if(vis[i]==false){
+                if(iscuclic(i,vis,adj,-1)){
+                    return true;
+                }
             }
         }
         return false;
     }
 };
 
+
 //{ Driver Code Starts.
+
 int main() {
     int tc;
     cin >> tc;
+    cin.ignore();
     while (tc--) {
         int V, E;
         cin >> V >> E;
-        vector<int> adj[V];
-        for (int i = 0; i < E; i++) {
+        cin.ignore();
+        vector<vector<int>> edges;
+        for (int i = 1; i <= E; i++) {
             int u, v;
             cin >> u >> v;
-            adj[u].push_back(v);
-            adj[v].push_back(u);
+            edges.push_back({u, v});
         }
+
         Solution obj;
-        bool ans = obj.isCycle(V, adj);
+        bool ans = obj.isCycle(V, edges);
         if (ans)
-            cout << "1\n";
+            cout << "true\n";
         else
-            cout << "0\n";
+            cout << "false\n";
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
+
 // } Driver Code Ends
