@@ -2,61 +2,72 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
   public:
-    bool isCyclicUtil(int v, vector<int> adj[], vector<bool> &visited, vector<bool> &recStack) {
-        visited[v] = true;
-        recStack[v] = true;
-        for (int neighbor : adj[v]) {
-            if (!visited[neighbor] && isCyclicUtil(neighbor, adj, visited, recStack)) {
-                return true;
-            }
-            else if (recStack[neighbor]) {
-                return true;
-            }
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        // code here
+        vector<vector<int>> adj(V);
+        vector<int> degree(V);
+        queue<int> qu;
+        int count = 0;
+        
+        for(auto &i : edges) {
+            int u = i[0], v = i[1];
+            if(u == v) return true;
+            degree[v]++;
+            adj[u].push_back(v);
         }
-        recStack[v] = false;
-        return false;
-    }
-    
-    bool isCyclic(int V, vector<int> adj[]) {
-        vector<bool> visited(V, false);
-        vector<bool> recStack(V, false);
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                if (isCyclicUtil(i, adj, visited, recStack)) {
-                    return true; 
+        
+        for(int i = 0; i < V; i++) {
+            if(degree[i] == 0) qu.push(i), count++;
+        }
+        
+        
+        while(!qu.empty()) {
+            int curr = qu.front();
+            qu.pop();
+            
+            for(auto i : adj[curr]) {
+                degree[i]--;
+                if(degree[i] == 0) {
+                    qu.push(i);
+                    count++;
                 }
             }
         }
-        return false;  
+        
+        return (count < V);
     }
 };
+
 
 //{ Driver Code Starts.
 
 int main() {
-
-    int t;
-    cin >> t;
-    while (t--) {
+    int tc;
+    cin >> tc;
+    cin.ignore();
+    while (tc--) {
         int V, E;
         cin >> V >> E;
-
-        vector<int> adj[V];
-
-        for (int i = 0; i < E; i++) {
+        cin.ignore();
+        vector<vector<int>> edges;
+        for (int i = 1; i <= E; i++) {
             int u, v;
             cin >> u >> v;
-            adj[u].push_back(v);
+            edges.push_back({u, v});
         }
 
         Solution obj;
-        cout << obj.isCyclic(V, adj) << "\n";
+        bool ans = obj.isCyclic(V, edges);
+        if (ans)
+            cout << "true\n";
+        else
+            cout << "false\n";
     }
-
     return 0;
 }
-
 // } Driver Code Ends
