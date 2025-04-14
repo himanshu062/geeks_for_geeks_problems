@@ -1,105 +1,143 @@
 //{ Driver Code Starts
-// Initial Template for C++
-
 #include <bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
-// User function Template for C++
 
-class Solution{
-    void solve(int i,vector<vector<int>> v,vector<int> &vis,string &res){
-        vis[i] = 1;
-        
-        for(auto a:v[i]){
-            if(!vis[a])
-                solve(a,v,vis,res);
+// } Driver Code Ends
+
+class Solution {
+  public:
+    string findOrder(vector<string> &words) {
+        // code here
+        if (words.size() == 1) {
+            string uniqueChars = "";
+            unordered_set<char> seen;
+            for (char c : words[0]) {
+                if (seen.find(c) == seen.end()) {
+                    seen.insert(c);
+                    uniqueChars += c;
+                }
+            }
+            return uniqueChars;
         }
-        
-        char ch = i+'a';
-        res =ch+res;
-    }
-    
-    public:
-    string findOrder(string dict[], int n, int k) {
-        vector<vector<int>> v(k);
-        int i,j;
-        
-        for(i=0;i<n-1;i++){
-            string s1 = dict[i];
-            string s2 = dict[i+1];
-            
-            for(j=0;j<min(s1.size(),s2.size());j++){
-                if(s1[j]!=s2[j]){
-                    v[s1[j]-'a'].push_back(s2[j]-'a');
+        unordered_set<char> chars;
+        for (const string &word : words) {
+            for (char c : word) {
+                chars.insert(c);
+            }
+        }
+        unordered_map<char, vector<char>> graph;
+        unordered_map<char, int> inDegree;
+        for (char c : chars) {
+            graph[c] = vector<char>();
+            inDegree[c] = 0;
+        }
+        for (int i = 0; i < words.size() - 1; i++) {
+            string word1 = words[i];
+            string word2 = words[i + 1];
+            int minLen = min(word1.length(), word2.length());
+            bool foundDiff = false;
+            for (int j = 0; j < minLen; j++) {
+                if (word1[j] != word2[j]) {
+                    graph[word1[j]].push_back(word2[j]);
+                    inDegree[word2[j]]++;
+                    foundDiff = true;
                     break;
                 }
             }
+            if (!foundDiff && word1.length() > word2.length()) {
+                return ""; 
+            }
+        }
+        queue<char> q;
+        for (auto& pair : inDegree) {
+            if (pair.second == 0) {
+                q.push(pair.first);
+            }
         }
         
-        
-        vector<int> vis(k,0);
-        string res = "";
-        
-        
-        for(i=0;i<k;i++){
-            if(!vis[i])
-                solve(i,v,vis,res);
+        string result = "";
+        while (!q.empty()) {
+            char current = q.front();
+            q.pop();
+            result += current;
+            for (char neighbor : graph[current]) {
+                inDegree[neighbor]--;
+                if (inDegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
         }
-        return res;
+        if (result.length() != chars.size()) {
+            return ""; 
+        }
+        
+        return result;
     }
 };
 
 
 //{ Driver Code Starts.
-string order;
 
-bool f(string a, string b) {
-    int p1 = 0;
-    int p2 = 0;
-    for (int i = 0; i < min(a.size(), b.size()) and p1 == p2; i++) {
-        p1 = order.find(a[i]);
-        p2 = order.find(b[i]);
-        //	cout<<p1<<" "<<p2<<endl;
+bool validate(const vector<string> &original, const string &order) {
+    unordered_map<char, int> mp;
+    for (const string &word : original) {
+        for (const char &ch : word) {
+            mp[ch] = 1;
+        }
+    }
+    for (const char &ch : order) {
+        if (mp.find(ch) == mp.end())
+            return false;
+        mp.erase(ch);
+    }
+    if (!mp.empty())
+        return false;
+
+    for (int i = 0; i < order.size(); i++) {
+        mp[order[i]] = i;
     }
 
-    if (p1 == p2 and a.size() != b.size())
-        return a.size() < b.size();
-
-    return p1 < p2;
+    for (int i = 0; i < original.size() - 1; i++) {
+        const string &a = original[i];
+        const string &b = original[i + 1];
+        int k = 0, n = a.size(), m = b.size();
+        while (k < n and k < m and a[k] == b[k]) {
+            k++;
+        }
+        if (k < n and k < m and mp[a[k]] > mp[b[k]]) {
+            return false;
+        }
+        if (k != n and k == m) {
+            return false;
+        }
+    }
+    return true;
 }
 
-// Driver program to test above functions
 int main() {
-    int t;
-    cin >> t;
+    string str;
+    getline(cin, str);
+    int t = stoi(str);
     while (t--) {
-        int N, K;
-        cin >> N >> K;
-        string dict[N];
-        for (int i = 0; i < N; i++)
-            cin >> dict[i];
+        getline(cin, str);
+        stringstream ss(str);
+        string curr;
+        vector<string> words;
+        while (ss >> curr)
+            words.push_back(curr);
 
-        Solution obj;
-        string ans = obj.findOrder(dict, N, K);
-        order = "";
-        for (int i = 0; i < ans.size(); i++)
-            order += ans[i];
+        vector<string> original = words;
 
-        string temp[N];
-        std::copy(dict, dict + N, temp);
-        sort(temp, temp + N, f);
+        Solution ob;
+        string order = ob.findOrder(words);
 
-        bool f = true;
-        for (int i = 0; i < N; i++)
-            if (dict[i] != temp[i])
-                f = false;
-
-        if (f)
-            cout << 1;
-        else
-            cout << 0;
-        cout << endl;
+        if (order.empty()) {
+            cout << "\"\"" << endl;
+        } else {
+            cout << (validate(original, order) ? "true" : "false") << endl;
+        }
+        cout << "~" << endl;
     }
     return 0;
 }
