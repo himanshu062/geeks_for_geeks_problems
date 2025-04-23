@@ -1,0 +1,18 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/stable-marriage-problem/1?page=1&difficulty=Medium&status=unsolved&sortBy=latest">Stable Marriage Problem</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 14pt;">Given&nbsp;<strong>n</strong>&nbsp;men and&nbsp;<strong>n</strong>&nbsp;women, where each person ranks all members of the opposite gender in order of preference (men ranks women and women ranks men), the task is to marry the men and women together such that no two persons of opposite gender prefers each other over their current partners.&nbsp;</span></p>
+<p><span style="font-size: 14pt;">In other words, the task is to pair each man with a woman such that</span></p>
+<ul>
+<li><span style="font-size: 14pt;">Every man is paired with exactly one woman, and vice versa.</span></li>
+<li><span style="font-size: 14pt;">The matching is&nbsp;<strong>stable</strong>, that is there is no pair&nbsp; who would both prefer to be matched with each other over their current partners.</span></li>
+</ul>
+<p><span style="font-size: 14pt;"><strong>Note:</strong>&nbsp;It can be proven that it is always possible to form stable marriages.&nbsp;</span></p>
+<p><span style="font-size: 14pt;">The input contains two arrays,&nbsp;<strong>men[]</strong>&nbsp;and<strong>&nbsp;women[]</strong>, such that&nbsp;<strong>men[i]&nbsp;</strong>stores the preference list of<strong>&nbsp;ith man</strong>&nbsp;and<strong>&nbsp;women[i]</strong>&nbsp;stores the preference list of&nbsp;<strong>ith woman</strong>.</span></p>
+<p><span style="font-size: 14pt;">You should return a list of&nbsp;<strong>integers</strong>, where the<strong>&nbsp;i-th element</strong>&nbsp;represents the<strong>&nbsp;index of the woman</strong>&nbsp;that the&nbsp;<strong>i-th man</strong>&nbsp;is married to (0-based index).&nbsp;</span></p>
+<p><span style="font-size: 14pt;"><strong>Examples:</strong>&nbsp;</span></p>
+<pre><span style="font-size: 14pt;"><strong>Input:</strong> n = 2, men[] = [[0, 1], [0, 1], women[] = [[0, 1], [0, 1]]<br><strong>Output:&nbsp;</strong>[0, 1]<br><strong>Explanation:<br></strong></span><span style="font-size: 14pt;">Man 0 is married to Woman 0 (his first choice and her first choice).<br></span><span style="font-size: 14pt;">Man 1 is married to Woman 1 (his second choice and her second choice).</span></pre>
+<pre><span style="font-size: 14pt;"><strong>Input:</strong> n = 3, men[] = [[0, 1, 2], [0, 1, 2], [0, 1, 2]], women[] = [[2, 1, 0], [2, 1, 0], [2, 1, 0]]<br><strong>Output:&nbsp;</strong>[2, 1, 0]<br><strong>Explanation:<br></strong></span><span style="font-size: 14pt;">Man 0 is married to Woman 2 (his third choice and her third choice).<br></span><span style="font-size: 14pt;">Man 1 is married to Woman 1 (his second choice and her second choice).<br></span><span style="font-size: 14pt;">Man 2 is married to Woman 0 (his first choice and her first choice).<br></span></pre>
+<p><span style="font-size: 14pt;"><strong>Constraints:</strong>&nbsp;</span></p>
+<ul>
+<li><span style="font-size: 14pt;">2 &lt;= n &lt;= 10^3</span></li>
+<li><span style="font-size: 14pt;">0 &lt;= men[i] &lt;= n - 1</span></li>
+<li><span style="font-size: 14pt;">0 &lt;= women[i] &lt;= n - 1</span></li>
+</ul></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Greedy</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Algorithms</code>&nbsp;
