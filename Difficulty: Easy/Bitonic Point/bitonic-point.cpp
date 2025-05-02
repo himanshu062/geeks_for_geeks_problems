@@ -1,17 +1,17 @@
 //{ Driver Code Starts
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
 // } Driver Code Ends
-//User function template for C++
-class Solution{
-public:
-	
-	int findMaximum(int arr[], int n) {
-	    // code here
-	    int left = 0, right = n - 1;
+
+// User function template for C++
+class Solution {
+  public:
+    int findMaximum(vector<int> &arr) {
+        // code here
+        int n = arr.size();
+        int left = 0, right = n - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
             if (arr[mid] < arr[mid + 1]) 
@@ -20,24 +20,37 @@ public:
                 right = mid; 
         }
         return arr[left];
-	}
+    }
 };
+
 
 //{ Driver Code Starts.
 
 int main() {
     int t;
     cin >> t;
+    cin.ignore();
+
     while (t--) {
-        int n, i;
-        cin >> n;
-        int arr[n];
-        for (i = 0; i < n; i++) {
-            cin >> arr[i];
+        vector<int> arr;
+        int value;
+
+        // Read the entire line of integers
+        string line;
+        // cin.ignore(); // Ignore the newline after the test case input
+        getline(cin, line);
+        stringstream ss(line);
+
+        // Parse integers and add them to the vector
+        while (ss >> value) {
+            arr.push_back(value);
         }
+
         Solution ob;
-        auto ans = ob.findMaximum(arr, n);
+        auto ans = ob.findMaximum(arr);
         cout << ans << "\n";
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
