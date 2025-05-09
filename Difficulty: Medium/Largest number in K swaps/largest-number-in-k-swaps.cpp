@@ -6,11 +6,11 @@ using namespace std;
 // } Driver Code Ends
 
 
-class Solution
-{
-    public:
-    //Function to find the largest number after k swaps.
-void solve(string &str, int k, string &maxStr, int index) {
+
+class Solution {
+  public:
+    // Function to find the largest number after k swaps.
+    void solve(string &str, int k, string &maxStr, int index) {
     if (k == 0) 
         return; 
     int n = str.size();
@@ -31,26 +31,29 @@ void solve(string &str, int k, string &maxStr, int index) {
         }
     }
 }
-string findMaximumNum(string str, int k) {
-    string res = str;
+    string findMaximumNum(string& str, int k) {
+        // code here.
+        string res = str;
     solve(str, k, res, 0);
     return res;
     }
 };
 
+
 //{ Driver Code Starts.
 
-int main()
-{
+int main() {
     int t, k;
     string str;
 
     cin >> t;
-    while (t--)
-    {
+    while (t--) {
         cin >> k >> str;
         Solution ob;
-        cout<< ob.findMaximumNum(str, k) << endl;
+        cout << ob.findMaximumNum(str, k) << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
