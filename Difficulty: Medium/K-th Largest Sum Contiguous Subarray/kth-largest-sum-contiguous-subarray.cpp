@@ -4,32 +4,32 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 // User function Template for C++
 
 class Solution {
   public:
     int kthLargest(vector<int> &arr, int k) {
         // code here
-        priority_queue<int, vector<int>, greater<int>> minHeap; 
-        int n = arr.size();
-
+        int n =  arr.size();
+        priority_queue<int,vector<int>,greater<int>> pq;
+        
         for (int i = 0; i < n; i++) {
-            int currentSum = 0;
+            int sum = 0;
             for (int j = i; j < n; j++) {
-                currentSum += arr[j];
-
-                if (minHeap.size() < k) {
-                    minHeap.push(currentSum);
-                } else if (currentSum > minHeap.top()) {
-                    minHeap.pop();
-                    minHeap.push(currentSum);
+                sum += arr[j];
+                pq.push(sum);
+                
+                if(pq.size() > k){
+                    pq.pop();
                 }
             }
         }
-
-        return minHeap.top();
+        
+        return pq.top();
     }
 };
+
 
 //{ Driver Code Starts.
 
